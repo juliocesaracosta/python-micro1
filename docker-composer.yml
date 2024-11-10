@@ -1,0 +1,14 @@
+version: '3'
+services:
+  python1:
+    image: 471112942110.dkr.ecr.us-west-1.amazonaws.com/python1:latest
+    ports:
+      - "5001:5000"
+    environment:
+      - API_KEY=value
+  python2:
+    image: 471112942110.dkr.ecr.us-west-1.amazonaws.com/python2:latest
+    ports:
+      - "5002:5000"
+    environment:
+      - API_KEY=value

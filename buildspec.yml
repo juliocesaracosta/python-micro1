@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Version java...
+      - java -version
+      - echo Access file
+      - chmod +x mvnw
+      - echo Obteniendo Credenciales...
+      - aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 471112942110.dkr.ecr.us-west-1.amazonaws.com
+  pre_build:
+    commands:
+      - echo Downloading docker-compose.yml from S3
+      - aws s3 cp s3://bucket-docker-compose/docker-compose.yml ./docker-compose.yml
+      - echo Clean Package...
+      - ./mvnw clean package
+      - echo Building Docker images...
+      - docker build --no-cache -t python1 .
+  build:
+    commands:
+      - echo Verify docker-compose file is downloaded
+      - ls -la docker-compose.yml
+      - echo Tagging Docker images
+      - docker tag python1:latest 471112942110.dkr.ecr.us-west-1.amazonaws.com/python1:latest
+  post_build:
+    commands:
+      - echo Pushing the second Docker image to Amazon ECR...
+      - docker push 471112942110.dkr.ecr.us-west-1.amazonaws.com/python1:latest
+artifacts:
+  files:
+    - docker-compose.yml
+  discard-paths: yes
