@@ -13,8 +13,6 @@ phases:
     commands:
       - echo Downloading docker-compose.yml from S3
       - aws s3 cp s3://bucket-docker-compose/docker-compose.yml ./docker-compose.yml
-      - echo Clean Package...
-      - ./mvnw clean package
       - echo Building Docker images...
       - docker build --no-cache -t python1 .
   build:
