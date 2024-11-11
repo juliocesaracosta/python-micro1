@@ -4,5 +4,3 @@ services:
     image: 471112942110.dkr.ecr.us-west-1.amazonaws.com/python1:latest
     ports:
       - "5001:5000"
-    environment:
-      - API_KEY=value
