@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy service files
 COPY . .
 
-EXPOSE 5000
+EXPOSE 8080
 
 # Start service
 CMD ["python", "app.py"]
